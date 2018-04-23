@@ -9,7 +9,7 @@ Plugin used in the process to help setup a review funnel on client websites.
 ## Components
 
 * Responsive stylesheet for the form
-* Download link to exported review form
+* Download link to Gravity Form export
 * Instructions on importing the form
 
 ## Installation

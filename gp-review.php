@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       GetPhound Review Funnel
  * Plugin URI:        https://getphound.com
- * Description:       Plugin used in the process to help setup a review funnel on client websites.
+ * Description:       Plugin used to setup a review funnel on websites.
  * Version:           1.0.0
  * Author:            GetPhound
  * Author URI:        https://getphound.com

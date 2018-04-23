@@ -2,3 +2,131 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+ .reviewfunnel .gform_wrapper {
+    max-width: 330px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.reviewfunnel span.hidden {
+	display: none;
+}
+
+.reviewfunnel .gform_wrapper ul.gfield_checkbox li label, .reviewfunnel .gform_wrapper ul.gfield_radio li label {
+	color: #333;
+	font-size: 34px;
+	margin-right: 38px;
+	display: block;
+	text-align: center;
+	margin-left: 0;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
+.reviewfunnel .gform_wrapper input[type=submit] {
+	display: block;
+	margin: 0 auto;
+	max-width: 300px;
+}
+
+.reviewfunnel label#label_1_5_8 {
+	margin-right: 30px;
+}
+
+.reviewfunnel label#label_1_5_9 {
+	margin-right: 7px;
+}
+
+.reviewfunnel input#choice_1_5_9 {
+    margin-left: 10px;
+}
+
+.reviewfunnel .ginput_container.ginput_container_textarea {
+	border-radius: 3px!important;
+	padding-left: 5px;
+}
+
+.reviewfunnel .gform_wrapper textarea {
+	border-radius: 3px;
+}
+
+.reviewfunnel a.button {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 5px 0;
+    max-width: 300px;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.25);
+}
+
+.reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_checkbox li, .reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_radio li {
+	margin-bottom: -10px;
+}
+
+.reviewfunnel .alignleft {
+	margin-left: -25px;
+}
+
+.reviewfunnel .alignright {
+	margin-right: -25px;
+}
+
+@media only screen and (max-width: 1640px) {
+
+	.reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_checkbox li, .reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_radio li {
+		margin-right: 8px;
+	}
+
+}
+
+@media only screen and (max-width: 1200px) {
+
+	.reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_checkbox li, .reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_radio li {
+	    margin-right: 8px;
+	}
+
+}
+
+@media only screen and (max-width: 640px) {
+
+	.reviewfunnel .ginput_container.ginput_container_radio {
+	    display: block;
+	    width: 100%;
+	    margin: 0 auto;
+	    text-align: center;
+	}
+
+	.reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_checkbox li, .reviewfunnel .gform_wrapper li.gf_list_inline ul.gfield_radio li {
+	    margin-right: 0;
+	}
+
+	.reviewfunnel label#label_1_5_9 {
+	    margin-right: 0;
+	}
+
+	.reviewfunnel .gform_wrapper ul.gfield_checkbox li label, .reviewfunnel .gform_wrapper ul.gfield_radio li label {
+		margin-right: 0;
+	}
+		
+	.reviewfunnel .gform_wrapper ul.gfield_checkbox li label, .reviewfunnel .gform_wrapper ul.gfield_radio li label {
+	    margin-right: 0;
+	    display: inline-block;
+	    width: 30px;
+		font-size: 12px;
+	}
+		
+	.reviewfunnel label#label_1_5_8 {
+	    margin-right: 0;
+	}
+		
+	.reviewfunnel .gform_wrapper ul.gfield_radio li:first-child label, .reviewfunnel .gform_wrapper ul.gfield_radio li:last-child label {
+		width: 85px;
+	}
+		
+	.reviewfunnel .gfield_description {
+		display: none;
+	}
+
+}

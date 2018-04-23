@@ -136,143 +136,152 @@ function my_login_stylesheet() {
 add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );
 
 /* --------------------------------------------------------------------
-Customize Dashboard
+Add Settings Page
 -------------------------------------------------------------------- */
-function gp_welcome_panel() {
-
-	echo '<div class="gp-dash-credit">';
-		if (get_header_image()) {
-			echo '<img src="' . esc_url( get_header_image() ). '" alt="' . esc_attr( get_bloginfo( 'title' ) ) . '" />';
-		}
-		echo '<h3>Welcome to <strong>' . esc_attr( get_bloginfo( 'title' ) ) . '</strong> Content Management System</h3>';
-		echo 'Designed and Developed by';
-		echo '<a href="https://getphound.com/" target="_blank" class="gp-logo"><img src="https://getphound.com/wp-content/themes/getphound/images/logo.png" alt="GetPhound" /></a>';
-		echo 'For questions or technical support call (610) 897 8127 or email <a href="mailto:josh@getphound.com">josh@getphound.com</a>';
-	echo '</div>';
-
-}
-
-remove_action('welcome_panel','wp_welcome_panel');
-add_action('welcome_panel','gp_welcome_panel'); 
-
-/* --------------------------------------------------------------------
-Remove Widgets on Dashboard
--------------------------------------------------------------------- */
-function gp_remove_dashboard_widgets() {
-
-	//Remove WordPress default dashboard widgets
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal');
-	remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal');
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'side');
-	remove_meta_box( 'dashboard_secondary', 'dashboard', 'side');
-	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-
-	//Remove additional plugin widgets
-	remove_meta_box( 'yoast_db_widget', 'dashboard', 'normal'); // Yoast
-
-}
-
-add_action('wp_dashboard_setup', 'gp_remove_dashboard_widgets' );
-
-/* --------------------------------------------------------------------
-Add Widget On Dashboard
--------------------------------------------------------------------- */
-function example_add_dashboard_widgets() {
-
-	wp_add_dashboard_widget(
-                 'general_help_widget',         // Widget slug.
-                 'Looking For General Help Editing Your Site?',         // Title.
-                 'general_help_widget_function' // Display function.
-        );	
-}
-add_action( 'wp_dashboard_setup', 'example_add_dashboard_widgets' );
-
 /**
- * Create the function to output the contents of our Dashboard Widget.
+ * @internal never define functions inside callbacks.
+ * these functions could be run multiple times; this would result in a fatal error.
  */
-function general_help_widget_function() {
-
-	// Display whatever it is you want to show.
-	echo '<p><a href="https://codex.wordpress.org/Writing_Posts">Guide To Writing Posts</a></p>';
-}
-
-/* --------------------------------------------------------------------
-Remove Unwanted Menu Items from WordPress Admin
--------------------------------------------------------------------- */
-function gp_remove_admin_menus (){ 
-	/* Remove unwanted menu items by passing their slug to the remove_menu_item() function.
-	You can comment out the items you want to keep. */
-	remove_menu_page('link-manager.php'); // Links
-	remove_menu_page('edit-comments.php'); // Comments
-	remove_menu_page('plugins.php'); // Plugins
-	remove_submenu_page( 'themes.php', 'customize.php' ); // Doesn't work for some reason
-	remove_submenu_page( 'themes.php', 'themes.php' );
-	remove_submenu_page( 'themes.php', 'theme-editor.php'); // Doesn't work for some reason
-	remove_submenu_page( 'themes.php', 'theme-editor.php' );
-	remove_menu_page('tools.php'); // Tools
-	remove_menu_page('options-general.php'); // Settings
-
-	// Third-Party Plugins
-	remove_menu_page('edit.php?post_type=acf-field-group'); // ACF
-	remove_menu_page('/admin.php?page=cptui_manage_post_types'); // CPT UI
-	remove_menu_page('admin.php?page=wpseo_dashboard'); // Yoast
-}
-
-// Add our function to the admin_menu action
-add_action('admin_init', 'gp_remove_admin_menus');
-
-// Remove WordPress Admin Bar Menu Items
-function wpcustom_admin_bar() {
-
-    global $wp_admin_bar;
-	// To remove WordPress logo and related submenu items
-   $wp_admin_bar->remove_menu('wp-logo');
-   $wp_admin_bar->remove_menu('about');
-   $wp_admin_bar->remove_menu('wporg');
-   $wp_admin_bar->remove_menu('documentation');
-   $wp_admin_bar->remove_menu('support-forums');
-   $wp_admin_bar->remove_menu('feedback');
-	// To remove Update Icon/Menu
-   $wp_admin_bar->remove_menu('updates');
-	// To remove Comments Icon/Menu
-   $wp_admin_bar->remove_menu('comments');
-
-}
-add_action( 'wp_before_admin_bar_render', 'wpcustom_admin_bar' );
-
-
-// Hide Admin Notications
-function hide_update_notice() {
-
-    remove_all_actions( 'admin_notices' );
-
-}
-add_action( 'admin_head', 'hide_update_notice', 1 );
-
-// Add GetPhound color scheme
-function gp_admin_color_schemes() {
-	
-	$plugins_url = plugin_dir_url( __FILE__ );
-
-	wp_admin_css_color( 
-		'getphound', __( 'GetPhound' ),
-		$plugins_url . 'css/getphound/colors.css',
-		array( '#333333', '#555555', '#9e2916', '#CCC' )
-	);
-	
-}
-add_action('admin_init', 'gp_admin_color_schemes');
-add_filter( 'get_user_option_admin_color', function( $color_scheme ) {
-$color_scheme = 'getphound';
-return $color_scheme;
-}, 5 );
-
-// Admin footer modification
-function remove_footer_admin() {
-    echo '<span id="footer-thankyou">Thank you for using <a href="https://www.getphound.com" target="_blank">GetPhound</a>.</span>';
+ 
+/**
+ * custom option and settings
+ */
+function review_funnel_settings_init() {
+ // register a new setting for "review_funnel" page
+ register_setting( 'review_funnel', 'review_funnel_options' );
+ 
+ // register a new section in the "review_funnel" page
+ add_settings_section(
+ 'review_funnel_section_developers',
+ __( 'The Matrix has you.', 'review_funnel' ),
+ 'review_funnel_section_developers_cb',
+ 'review_funnel'
+ );
+ 
+ // register a new field in the "review_funnel_section_developers" section, inside the "review_funnel" page
+ add_settings_field(
+ 'review_funnel_field_pill', // as of WP 4.6 this value is used only internally
+ // use $args' label_for to populate the id inside the callback
+ __( 'Pill', 'review_funnel' ),
+ 'review_funnel_field_pill_cb',
+ 'review_funnel',
+ 'review_funnel_section_developers',
+ [
+ 'label_for' => 'review_funnel_field_pill',
+ 'class' => 'review_funnel_row',
+ 'review_funnel_custom_data' => 'custom',
+ ]
+ );
 }
  
-add_filter('admin_footer_text', 'remove_footer_admin');
+/**
+ * register our review_funnel_settings_init to the admin_init action hook
+ */
+add_action( 'admin_init', 'review_funnel_settings_init' );
+ 
+/**
+ * custom option and settings:
+ * callback functions
+ */
+ 
+// developers section cb
+ 
+// section callbacks can accept an $args parameter, which is an array.
+// $args have the following keys defined: title, id, callback.
+// the values are defined at the add_settings_section() function.
+function review_funnel_section_developers_cb( $args ) {
+ ?>
+ <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'review_funnel' ); ?></p>
+ <?php
+}
+ 
+// pill field cb
+ 
+// field callbacks can accept an $args parameter, which is an array.
+// $args is defined at the add_settings_field() function.
+// wordpress has magic interaction with the following keys: label_for, class.
+// the "label_for" key value is used for the "for" attribute of the <label>.
+// the "class" key value is used for the "class" attribute of the <tr> containing the field.
+// you can add custom key value pairs to be used inside your callbacks.
+function review_funnel_field_pill_cb( $args ) {
+ // get the value of the setting we've registered with register_setting()
+ $options = get_option( 'review_funnel_options' );
+ // output the field
+ ?>
+ <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
+ data-custom="<?php echo esc_attr( $args['review_funnel_custom_data'] ); ?>"
+ name="review_funnel_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ >
+ <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
+ <?php esc_html_e( 'red pill', 'review_funnel' ); ?>
+ </option>
+ <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
+ <?php esc_html_e( 'blue pill', 'review_funnel' ); ?>
+ </option>
+ </select>
+ <p class="description">
+ <?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'review_funnel' ); ?>
+ </p>
+ <p class="description">
+ <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'review_funnel' ); ?>
+ </p>
+ <?php
+}
+ 
+/**
+ * top level menu
+ */
+function review_funnel_options_page() {
+ // add top level menu page
+ add_menu_page(
+ 'Review Funnel',
+ 'Review Funnel',
+ 'manage_options',
+ 'review_funnel',
+ 'review_funnel_options_page_html'
+ );
+}
+ 
+/**
+ * register our review_funnel_options_page to the admin_menu action hook
+ */
+add_action( 'admin_menu', 'review_funnel_options_page' );
+ 
+/**
+ * top level menu:
+ * callback functions
+ */
+function review_funnel_options_page_html() {
+ // check user capabilities
+ if ( ! current_user_can( 'manage_options' ) ) {
+ return;
+ }
+ 
+ // add error/update messages
+ 
+ // check if the user have submitted the settings
+ // wordpress will add the "settings-updated" $_GET parameter to the url
+ if ( isset( $_GET['settings-updated'] ) ) {
+ // add settings saved message with the class of "updated"
+ add_settings_error( 'review_funnel_messages', 'review_funnel_message', __( 'Settings Saved', 'review_funnel' ), 'updated' );
+ }
+ 
+ // show error/update messages
+ settings_errors( 'review_funnel_messages' );
+ ?>
+ <div class="wrap">
+ <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+ <form action="options.php" method="post">
+ <?php
+ // output security fields for the registered setting "review_funnel"
+ settings_fields( 'review_funnel' );
+ // output setting sections and their fields
+ // (sections are registered for "review_funnel", each field is registered to a specific section)
+ do_settings_sections( 'review_funnel' );
+ // output save settings button
+ submit_button( 'Save Settings' );
+ ?>
+ </form>
+ </div>
+ <?php
+}
