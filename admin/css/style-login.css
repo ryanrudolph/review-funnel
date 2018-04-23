@@ -1,0 +1,11 @@
+/*! Login CSS
+ */
+body.login div#login form#loginform p.submit input#wp-submit {
+	background: #9e2916;
+	border-color: #333;
+	text-shadow: none;
+}
+
+.login #login_error, .login .message {
+	border-left: 4px solid #9e2916;
+}

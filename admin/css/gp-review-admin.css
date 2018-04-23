@@ -1,0 +1,14 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ .gp-dash-credit {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.gp-dash-credit .gp-logo {
+    display: block;
+    margin: 30px auto;
+}
