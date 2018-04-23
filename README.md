@@ -1,6 +1,6 @@
 # GetPhound Review Funnel
 
-Plugin used in the process to help setup a review funnel on client websites.
+Plugin used to setup a review funnel on websites.
 
 ## Requirements
 
