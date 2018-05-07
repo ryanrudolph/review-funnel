@@ -29,11 +29,13 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	$(document).ready(function() {
+		$(".reviewfunnel input[name$='input_1']").click(function() {
+		    $('.ginput_container_radio').hide();
+		     $('.gfield_description').hide();
+		});
+	});
+	
 })( jQuery );
 
-$(document).ready(function() {
-$(".reviewfunnel input[name$='input_1']").click(function() {
-    $('.ginput_container_radio').hide();
-     $('.gfield_description').hide();
-});
-});
+
