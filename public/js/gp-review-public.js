@@ -30,3 +30,10 @@
 	 */
 
 })( jQuery );
+
+$(document).ready(function() {
+$(".reviewfunnel input[name$='input_1']").click(function() {
+    $('.ginput_container_radio').hide();
+     $('.gfield_description').hide();
+});
+});
