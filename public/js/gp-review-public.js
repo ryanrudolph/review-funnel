@@ -34,6 +34,14 @@
 		    $('.ginput_container_radio').hide();
 		     $('.gfield_description').hide();
 		});
+		
+		$(".reviewfunnel input#choice_2_1_3").click(function() {
+			$('.reviewfunnel .gform_footer').hide();
+		});
+		
+		$(".reviewfunnel input#choice_2_1_4").click(function() {
+			$('.reviewfunnel .gform_footer').hide();
+		});
 	});
 	
 })( jQuery );
